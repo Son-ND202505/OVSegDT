@@ -1,0 +1,6 @@
+__pycache__/
+outputs/*
+!outputs/.gitkeep
+checkpoints/*
+!checkpoints/.gitkeep
+*.mp4

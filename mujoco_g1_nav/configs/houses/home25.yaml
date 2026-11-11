@@ -1,0 +1,77 @@
+name: home25
+building: home25
+rooms: {A: kitchen, B: living room, C: bedroom 1, D: bedroom 2, N: hallway N, W: hallway W, X: junction, E: hallway E, S: hallway S}
+items:
+  - {id: table_0,    cat: table,        room: A, at: [0.0, 0.0], yaw: 0, fixed: true}
+  - {id: fridge_0,   cat: refrigerator, room: A, wall: north, along: -4.30, group: kitchen_run}
+  - {id: cabinet_0,  cat: cabinet,      room: A, wall: north, along: -3.40, group: kitchen_run}
+  - {id: counter_0,  cat: counter,      room: A, wall: north, along: -2.40, size: [0.65, 1.00, 0.90], group: kitchen_run}
+  - {id: sink_0,     cat: sink,         room: A, wall: north, along: -1.05, group: kitchen_run}
+  - {id: stove_0,    cat: stove,        room: A, wall: north, along:  0.20, group: kitchen_run}
+  - {id: counter_1,  cat: counter,      room: A, wall: north, along:  1.30, size: [0.65, 1.40, 0.90], group: kitchen_run}
+  - {id: trash_can_0, cat: trash_can,   room: A, wall: north, along:  2.40, group: kitchen_run}
+  - {id: chair_0,    cat: chair,        room: A, wall: west, along: -0.90}
+  - {id: chair_1,    cat: chair,        room: A, wall: west, along:  0.30}
+  - {id: potted_plant_0, cat: potted_plant, room: A, wall: east, along: -4.00}
+  - {id: potted_plant_1, cat: potted_plant, room: A, wall: east, along:  4.20}
+  - {id: tv_stand_0, cat: tv_stand,     room: B, wall: north, along: 0.0}
+  - {id: tv_0,       cat: tv,           room: B, on_top: tv_stand_0, at: [-0.08, 0.0]}
+  - {id: sofa_0,     cat: sofa,         room: B, at: [0.0, -1.0], yaw: 90, group: living_set}
+  - {id: coffee_table_0, cat: coffee_table, room: B, at: [0.0, 1.05], yaw: 90, group: living_set}
+  - {id: glasses_0,  cat: glasses,      room: B, on_top: coffee_table_0, at: [0.0, 0.15]}
+  - {id: rug_0,      cat: rug,          room: B, rel: coffee_table_0, at: [-0.85, 0.0]}
+  - {id: lamp_0,     cat: lamp,         room: B, at: [-1.55, -1.00], group: living_set}
+  - {id: armchair_0, cat: armchair,     room: B, at: [3.20, 0.60], yaw: 180}
+  - {id: piano_0,    cat: piano,        room: B, wall: south, along: 3.60}
+  - {id: stool_0,    cat: stool,        room: B, rel: piano_0, at: [0.20, 1.30]}
+  - {id: bookshelf_0, cat: bookshelf,   room: B, wall: west, along: 3.20}
+  - {id: potted_plant_2, cat: potted_plant, room: B, wall: east, along: 4.20}
+  - {id: picture_0,  cat: picture,      room: B, wall: east, along: 1.00}
+  - {id: picture_1,  cat: picture,      room: B, wall: north, along: -3.20}
+  - {id: bed_0,      cat: bed,          room: C, wall: west, along: 0.0, gap: 0.02, group: bed_head}
+  - {id: nightstand_0, cat: nightstand, room: C, wall: west, along: 1.10, group: bed_head}
+  - {id: nightstand_1, cat: nightstand, room: C, wall: west, along: -1.10, group: bed_head}
+  - {id: picture_2,  cat: picture,      room: C, wall: north, along: -0.60, size: [0.04, 1.10, 0.50]}
+  - {id: wardrobe_0, cat: wardrobe,     room: C, wall: south, along: -3.00}
+  - {id: bookshelf_1, cat: bookshelf,   room: C, wall: north, along: -3.50, size: [0.30, 0.90, 1.80]}
+  - {id: desk_0,     cat: desk,         room: C, wall: east, along: 2.40}
+  - {id: chair_2,    cat: chair,        room: C, rel: desk_0, at: [1.00, 0.0], yaw: 180, model: chairDesk}
+  - {id: mirror_0,   cat: mirror,       room: C, wall: south, along: 1.00}
+  - {id: rug_1,      cat: rug,          room: C, at: [-1.90, 0.0], yaw: 0, size: [2.00, 2.60, 0.015], model: rugRounded}
+  - {id: bed_1,      cat: bed,          room: D, wall: east, along: 1.90, gap: 0.02, size: [2.00, 0.95, 0.50], model: bedSingle, group: bed2_head}
+  - {id: bed_2,      cat: bed,          room: D, wall: east, along: -0.90, gap: 0.02, size: [2.00, 0.95, 0.50], model: bedSingle, group: bed2_head}
+  - {id: nightstand_2, cat: nightstand, room: D, wall: east, along: 0.50, group: bed2_head}
+  - {id: lamp_1,     cat: lamp,         room: D, on_top: nightstand_2, at: [-0.05, 0.0], size: [0.20, 0.20, 0.35], model: lampRoundTable}
+  - {id: picture_3,  cat: picture,      room: D, wall: north, along: -3.50, size: [0.04, 1.00, 0.60]}
+  - {id: wardrobe_1, cat: wardrobe,     room: D, wall: south, along: -2.50, size: [0.60, 1.40, 2.00]}
+  - {id: bookshelf_2, cat: bookshelf,   room: D, wall: west, along: -2.00, size: [0.30, 0.80, 1.20]}
+  - {id: toy_chest_0, cat: toy_chest,   room: D, wall: north, along: 3.00}
+  - {id: round_table_0, cat: round_table, room: D, at: [-1.80, 0.60]}
+  - {id: stool_1,    cat: stool,        room: D, rel: round_table_0, at: [0.0, 0.80]}
+  - {id: stool_2,    cat: stool,        room: D, rel: round_table_0, at: [0.0, -0.80]}
+  - {id: rug_2,      cat: rug,          room: D, rel: round_table_0, at: [0.0, 0.0], size: [1.80, 1.80, 0.015], shape: round, model: rugRound}
+  - {id: potted_plant_3,  cat: potted_plant,  room: N, world: [5.75, 4.35]}
+  - {id: potted_plant_4,  cat: potted_plant,  room: N, world: [9.45, 4.35]}
+  - {id: console_table_0, cat: console_table, room: N, wall: east, along: -3.20}
+  - {id: picture_4,       cat: picture,       room: N, wall: east, along: -3.20}
+  - {id: bench_0,         cat: bench,         room: N, wall: west, along: 2.20}
+  - {id: picture_5,       cat: picture,       room: N, wall: west, along: 2.20}
+  - {id: potted_plant_5,  cat: potted_plant,  room: W, world: [-4.35, -5.85]}
+  - {id: potted_plant_6,  cat: potted_plant,  room: W, world: [-4.35, -9.35]}
+  - {id: bench_1,         cat: bench,         room: W, wall: north, along: -3.00}
+  - {id: picture_6,       cat: picture,       room: W, wall: north, along: -3.00}
+  - {id: picture_7,       cat: picture,       room: W, wall: north, along: 2.50}
+  - {id: shoe_rack_0,     cat: shoe_rack,     room: W, wall: south, along: -2.50}
+  - {id: potted_plant_7,  cat: potted_plant,  room: E, world: [19.55, -5.85]}
+  - {id: potted_plant_8,  cat: potted_plant,  room: E, world: [19.55, -9.35]}
+  - {id: console_table_1, cat: console_table, room: E, wall: north, along: -3.30}
+  - {id: picture_8,       cat: picture,       room: E, wall: north, along: -3.30}
+  - {id: bench_2,         cat: bench,         room: E, wall: south, along: 3.00}
+  - {id: picture_9,       cat: picture,       room: E, wall: south, along: 3.00}
+  - {id: potted_plant_9,  cat: potted_plant,  room: S, world: [5.75, -19.55]}
+  - {id: potted_plant_10, cat: potted_plant,  room: S, world: [9.45, -19.55]}
+  - {id: bench_3,         cat: bench,         room: S, wall: east, along: -2.90}
+  - {id: picture_10,      cat: picture,       room: S, wall: east, along: -2.90}
+  - {id: console_table_2, cat: console_table, room: S, wall: west, along: 2.80}
+  - {id: picture_11,      cat: picture,       room: S, wall: west, along: 2.80}
+  - {id: rug_3,           cat: rug,           room: S, at: [0.0, -0.40], size: [0.90, 5.00, 0.015]}

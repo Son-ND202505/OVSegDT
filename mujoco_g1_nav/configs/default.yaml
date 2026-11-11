@@ -1,0 +1,125 @@
+paths:
+  robot_xml: third_party/unitree_mujoco/unitree_robots/g1/g1_29dof.xml
+  locomotion_dir: third_party/unitree_rl_mjlab/deploy/robots/g1/config/policy/velocity/v0
+  gso_dir: mujoco_g1_nav/assets/gso
+room:
+  size_xy: [10.0, 10.0]
+  wall_height: 3.0
+table:
+  center_xy: [0.0, 0.0]
+  size_xy: [0.8, 1.4]
+  top_z: 0.75
+  thickness: 0.04
+camera:
+  name: ego
+  width: 360
+  height: 640
+  hfov_deg: 42.0
+  height_m: 1.31
+  forward_offset_m: 0.10
+  pitch_deg: 30.0
+  policy_input_size: 224
+navigation:
+  action_ids: {stop: 0, move_forward: 1, turn_left: 2, turn_right: 3, look_up: 4, look_down: 5}
+  forward_step_m: 0.25
+  turn_step_deg: 30.0
+locomotion:
+  sim_dt: 0.005
+  decimation: 4
+  forward_cmd_mps: 0.5
+  turn_cmd_radps: 0.5
+  forward_gain: 2.5
+  forward_min_cmd_mps: 0.15
+  heading_hold_gain: 3.0
+  forward_lead_m: 0.04
+  turn_lead_deg: 0.0
+  settle_max_s: 3.0
+  action_timeout_s: 6.0
+  fall_height_m: 0.5
+starts:
+  - {id: 0, name: far_front,   xy: [-3.5,  0.0], yaw_deg:    0.0}
+  - {id: 1, name: front_left,  xy: [-3.0, -3.0], yaw_deg:   45.0}
+  - {id: 2, name: front_right, xy: [-3.0,  3.0], yaw_deg:  -45.0}
+  - {id: 3, name: end_left,    xy: [ 0.0, -3.5], yaw_deg:   90.0}
+  - {id: 4, name: back,        xy: [ 3.5,  0.5], yaw_deg:  180.0}
+slots:
+  center:     [ 0.00,  0.00]
+  corner:     [ 0.30,  0.58]
+  long_edge:  [-0.30,  0.00]
+  short_edge: [ 0.00, -0.58]
+mirror_slots: true
+slot_jitter_m: 0.02
+free_slot: {min_spacing_m: 0.20, edge_margin_m: 0.08}
+random_layout: {min_spacing_m: 0.18, edge_margin_m: 0.08}
+objects:
+  coca:   {phrases: ["coca cola can", "coke can", "red can"], color: red}
+  pepsi:  {phrases: ["pepsi can", "blue can"], color: blue}
+  cup:    {phrases: ["white cup", "cup", "mug"], color: white}
+  orange: {phrases: ["orange", "orange fruit"], color: orange}
+  basket: {phrases: ["yellow basket", "basket"], color: yellow}
+expert:
+  mode: search
+  grid_res_m: 0.05
+  table_inflation_m: 0.40
+  wall_margin_m: 0.45
+  step_clearance_min_m: 0.34
+  goal_clearance_m: 0.45
+  ring_clearance_m: 1.0
+  seen_min_px: 150
+  goal_min_px: 300
+  turn_tol_deg: 17
+  aim_tol_deg: 16
+  goal_obj_dist_weight: 2.0
+  approach_max_obj_dist_m: 1.0
+  stop_clearance_max_m: 0.55
+  stop_clearance_min_m: 0.34
+  path_margin_m: 0.75
+  path_margin_weight: 6.0
+  at_goal_tol_m: 0.30
+  stop_yaw_tol_deg: 18
+  max_steps: 300
+  circle_stop_slack_m: 0.10
+  circle_stop_max_obj_dist_m: 0.80
+  circle_goal_obj_dist_weight: 25.0
+  circle_vp_deg: 50
+  circle_vp_tol_m: 0.35
+  circle_at_goal_tol_m: 0.22
+  circle_creep_slack_m: 0.12
+  circle_max_viewpoints: 16
+expert_profiles:
+  classic: {}
+  close:
+    table_inflation_m: 0.38
+    goal_clearance_m: 0.43
+    stop_clearance_max_m: 0.53
+    stop_clearance_min_m: 0.38
+success:
+  clearance_range_m: [0.28, 0.80]
+  yaw_tol_deg: 25
+  min_px: 300
+  max_object_dist_m: 1.2
+success_close:
+  clearance_range_m: [0.28, 0.65]
+  yaw_tol_deg: 25
+  min_px: 300
+  max_object_dist_m: 0.90
+success_front:
+  phi_deg: 30.0
+  corner_m: 0.15
+manual_starts:
+  - {name: far_front,           xy: [-3.5,  0.0], yaw_deg:    0.0, desc: "Đối diện bàn, xa (3.1 m)"}
+  - {name: front_left,          xy: [-3.0, -3.0], yaw_deg:   45.0, desc: "Góc chéo trái, nhìn về phía bàn"}
+  - {name: front_right,         xy: [-3.0,  3.0], yaw_deg:  -45.0, desc: "Góc chéo phải, nhìn về phía bàn"}
+  - {name: end_left,            xy: [ 0.0, -3.5], yaw_deg:   90.0, desc: "Đầu bàn (phía -y), nhìn dọc theo bàn"}
+  - {name: back,                xy: [ 3.5,  0.5], yaw_deg:  180.0, desc: "Phía sau bàn, đối diện bàn"}
+  - {name: facing_table_mid,    xy: [-2.2,  0.0], yaw_deg:    0.0, desc: "Đối diện bàn, tầm trung (1.8 m)"}
+  - {name: facing_table_near,   xy: [-1.4,  0.0], yaw_deg:    0.0, desc: "Đối diện bàn, gần (1.0 m)"}
+  - {name: back_to_table,       xy: [-3.5,  0.0], yaw_deg:  180.0, desc: "Quay lưng vào bàn, nhìn thẳng vào tường"}
+  - {name: facing_wall_corner,  xy: [-3.0, -3.0], yaw_deg: -135.0, desc: "Nhìn vào góc tường, bàn ở phía sau"}
+  - {name: table_partial_left,  xy: [-3.0, -1.6], yaw_deg:   15.0, desc: "Chỉ thấy một phần bàn (bàn lệch mép trái khung hình)"}
+  - {name: table_partial_right, xy: [-3.0,  1.6], yaw_deg:  -15.0, desc: "Chỉ thấy một phần bàn (bàn lệch mép phải khung hình)"}
+  - {name: end_right,           xy: [ 0.0,  3.5], yaw_deg:  -90.0, desc: "Đầu bàn (phía +y), nhìn dọc theo bàn"}
+  - {name: beside_table,        xy: [-1.5, -2.5], yaw_deg:   90.0, desc: "Đi dọc bên cạnh bàn, bàn lệch bên phải"}
+  - {name: far_corner,          xy: [ 4.0, -4.0], yaw_deg:  135.0, desc: "Góc phòng xa, nhìn về phía bàn (5.7 m)"}
+  - {name: near_table_back,     xy: [-1.4,  0.0], yaw_deg:  180.0, desc: "Sát bàn (1.0 m) nhưng quay lưng lại"}
+  - {name: side_on,             xy: [-3.0,  0.0], yaw_deg:   90.0, desc: "Cách bàn 2.6 m, nhìn sang ngang (bàn ở bên phải)"}

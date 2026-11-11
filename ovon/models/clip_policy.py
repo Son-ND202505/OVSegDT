@@ -1,3 +1,4 @@
+import os
 from collections import OrderedDict
 from typing import TYPE_CHECKING, Dict, List, Optional, Tuple
 
@@ -555,7 +556,7 @@ class OVONNet(Net):
         mp3d_names = sorted([x for x in list(set(data['category'].values)) if isinstance(x, str)])
         self.obj_name_to_ids = {i:ii for ii,i in enumerate(mp3d_names)}
         self.ids_to_obj_name = {ii:i for ii,i in enumerate(mp3d_names)}
-        self.cache = load_pickle("data/text_embeddings/siglip.pkl")
+        self.cache = load_pickle(os.environ.get("OVSEGDT_TEXT_CACHE", "data/text_embeddings/siglip.pkl"))
 
         self.segm_loss = SegmentationAuxiliary(action_space, self)
 
@@ -573,6 +574,16 @@ class OVONNet(Net):
         
         if self.segmentation_source == "yolo_val_unseen":
             with open("cats_val_unseen.json", "r") as f:
+                data = json.load(f)
+                self.cats_text = data["cats_text"]
+                self.conf_per_cat = data["conf_per_cat"]
+            self.segm_model = [YOLOE("yoloe-v8l-seg.pt").to("cuda")]
+            self.segm_model[0].set_classes(self.cats_text, self.segm_model[0].get_text_pe(list(self.cats_text)))
+            self.object_goal = None
+            self.cache_values = torch.stack([torch.from_numpy(self.cache[k]) for k in self.cats_text]).to("cuda")
+
+        elif self.segmentation_source == "yolo_val_seen":
+            with open("cats_val_seen.json", "r") as f:
                 data = json.load(f)
                 self.cats_text = data["cats_text"]
                 self.conf_per_cat = data["conf_per_cat"]
@@ -732,9 +743,23 @@ class OVONNet(Net):
                                 selected_indices = (classes == target_class).nonzero(as_tuple=True)[0]
                             
                             selected_masks = masks[selected_indices]
-                            
+                            selected_confs = confs[selected_indices]
+
                             if selected_masks.shape[0] > 0:
-                                segmentation_mask[i, :, :, 0] = selected_masks.any(dim=0).squeeze().detach()
+                                # Soft confidence mask: weight each detected
+                                # instance's pixels by the detector's actual
+                                # confidence instead of collapsing to a hard
+                                # boolean union (`.any()`). This keeps the
+                                # policy's input reflecting how sure YOLOE
+                                # actually was, pixel by pixel, rather than
+                                # discarding that signal at threshold time.
+                                weighted_masks = (
+                                    selected_masks.float()
+                                    * selected_confs.view(-1, 1, 1)
+                                )
+                                segmentation_mask[i, :, :, 0] = (
+                                    weighted_masks.amax(dim=0).squeeze().detach()
+                                )
 
 
             new_segm_mask = self.semantic_encoder({"depth": segmentation_mask.float()})
@@ -809,13 +834,25 @@ class OVONNet(Net):
 
         cats_set = torch.unique(observations['multi_semantic_sensor'])
 
-        # and self.ids_to_obj_name[int(x)] in self.cats_train
-
+        # NOTE: an earlier version of this filter also required
+        # `self.ids_to_obj_name[int(x)] in self.cats_train`, but that
+        # attribute is never set on this class (only `self.cats_text` is,
+        # per `segmentation_source` branch in __init__) -- dead reference
+        # that made `segment()` crash with AttributeError the first time
+        # `segm_update_config.enabled` was ever turned on. Dropped it.
         str_set = {
             self.ids_to_obj_name[int(x)]
             for x in cats_set.tolist()
-            if self.ids_to_obj_name[int(x)] in self.cache and self.ids_to_obj_name[int(x)] in self.cats_train and torch.sum(observations['multi_semantic_sensor'] == int(x)) / observations['multi_semantic_sensor'].shape[0] > 10
-        }        
+            if self.ids_to_obj_name[int(x)] in self.cache and torch.sum(observations['multi_semantic_sensor'] == int(x)) / observations['multi_semantic_sensor'].shape[0] > 10
+        }
+
+        if not str_set:
+            # No category in this batch clears the pixel-count threshold --
+            # skip the segmentation loss this step rather than crashing on
+            # random.choice([]) (a real risk once segm_update_config is
+            # actually enabled, e.g. small/sparse target objects).
+            zero = torch.zeros((), device=visual_feats.device)
+            return {"loss": zero, "dice": zero, "bce": zero}
 
         category = random.choice(list(str_set))
         print(category)

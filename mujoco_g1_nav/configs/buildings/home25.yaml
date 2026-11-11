@@ -1,0 +1,20 @@
+name: home25
+description: "25 x 25 m furnished house: kitchen A, living room B, bedrooms C and D around a cross-shaped hallway (geometry of cross25)"
+wall_thickness: 0.1
+origin: A
+cols: [10, 5, 10]
+rows: [10, 5, 10]
+grid:
+  - [A, N, B]
+  - [W, X, E]
+  - [C, S, D]
+regions:
+  A: {kind: room, doors: [{wall: east,  offset: 7.0}, {wall: south, offset: 4.5}]}
+  B: {kind: room, doors: [{wall: west,  offset: 4.5}, {wall: south, offset: 5.5}], wall_rgb: [0.80, 0.86, 0.90], floor_rgb: [0.92, 0.97, 1.00]}
+  C: {kind: room, doors: [{wall: north, offset: 7.5}, {wall: east,  offset: 6.0}], wall_rgb: [0.88, 0.82, 0.86], floor_rgb: [1.00, 0.93, 0.98]}
+  D: {kind: room, doors: [{wall: west,  offset: 3.0}, {wall: north, offset: 4.5}], wall_rgb: [0.90, 0.88, 0.76], floor_rgb: [1.00, 1.00, 0.90]}
+  N: {kind: corridor}
+  W: {kind: corridor}
+  E: {kind: corridor}
+  S: {kind: corridor}
+  X: {kind: corridor}

@@ -1,0 +1,10 @@
+mujoco_g1_nav - MuJoCo Unitree G1 object-goal navigation demo
+Copyright 2026 Nguyen Duc Son (Nguyễn Đức Sơn)
+Licensed under the Apache License, Version 2.0 (LICENSE in this folder). The license covers the files of this folder only.
+
+Third-party material:
+- OVSegDT (ovon/, config/, habitat-lab/ of this repository): by its original authors, https://github.com/CognitiveAISystems/OVSegDT ;
+  that repository publishes no license, its terms are those of its authors. The policy checkpoint is fine-tuned from their released ckpt.5.pth.
+- assets/furniture/kenney: Kenney Furniture Kit, kenney.nl, CC0 1.0 (public domain).
+- assets/gso: one model of Google Scanned Objects (via github.com/kevinzakka/mujoco_scanned_objects), CC BY 4.0.
+- Unitree G1 model and walking policy: not included, cloned from github.com/unitreerobotics/unitree_mujoco and unitree_rl_mjlab (their licenses apply).

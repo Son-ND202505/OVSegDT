@@ -1,3 +1,7 @@
+> **This fork adds a MuJoCo demo:** a Unitree G1 humanoid finds furniture and objects in two furnished houses with the OVSegDT policy.
+> Setup and commands: [mujoco_g1_nav/README.md](mujoco_g1_nav/README.md). The AstraNav-Memory version of the same demo: https://github.com/Son-ND202505/AstraNav-Memory.
+> Everything below is the original README.
+
 ## Project Page
 
 GitHub Pages overview: https://cognitiveaisystems.github.io/OVSegDT/

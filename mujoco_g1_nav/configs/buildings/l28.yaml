@@ -1,0 +1,21 @@
+name: l28
+description: "L-shaped development house, 5 rooms and a bent corridor; nominal 504 m2"
+wall_thickness: 0.1
+origin: D
+cols: [8, 4, 6, 10]
+rows: [7, 7, 4, 8]
+grid:
+  - [A, N, '#', '#']
+  - [B, N, '#', '#']
+  - [W, X, E, E]
+  - [C, D, D, F]
+regions:
+  A: {kind: room, door: {wall: east, offset: 3.5}}
+  B: {kind: room, door: {wall: east, offset: 3.5}}
+  C: {kind: room, door: {wall: north, offset: 4.0}}
+  D: {kind: room, door: {wall: north, offset: 5.0}}
+  F: {kind: room, door: {wall: north, offset: 5.0}}
+  N: {kind: corridor}
+  W: {kind: corridor}
+  X: {kind: corridor}
+  E: {kind: corridor}

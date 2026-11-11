@@ -21,7 +21,7 @@ train.log
 slurm_logs/
 
 # scripts
-scripts/
+/scripts/
 video_dir/
 data/
 detectron2/
@@ -52,3 +52,8 @@ data
 video_dir_*/
 siglip/
 .DS_Store
+
+# MuJoCo demo: cloned dependencies and files downloaded at the first start
+/third_party/
+/yoloe-*.pt
+/mobileclip*.ts
